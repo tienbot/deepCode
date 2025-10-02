@@ -16,10 +16,24 @@
             --accent: #E45319;
         }
 
+        /* Подключение шрифта Arturito */
+        @font-face {
+            font-family: 'Arturito';
+            src: url('./fonts/arturito.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+        }
+
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
             color: #333;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
         }
 
         /* Секции сайта */
@@ -51,6 +65,11 @@
         .section-content {
             max-width: 800px;
             text-align: center;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Arturito', Arial, sans-serif;
+            font-weight: 700;
         }
 
         h1 {
@@ -156,21 +175,65 @@
             text-align: center;
             font-size: calc(var(--index) * 3.3);
             color: var(--accent);
-            text-shadow: 0 0 10px rgba(228, 83, 25, 0.3);
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
             line-height: 1;
+            font-family: 'Arturito', Arial, sans-serif;
         }
 
         .frame-media {
             position: relative;
             height: calc(var(--index) * var(--side-big));
             width: calc(var(--index) * var(--side-small));
-            background-position: center;
-            background-size: cover;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            background: #000000;
             border: 2px solid #000000;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: #333;
+            color: white;
+            padding: 10px 15px;
+            font-family: 'Courier New', monospace;
+            font-size: calc(var(--index) * 0.5);
+            border-bottom: 1px solid #555;
+        }
+
+        .code-content {
+            flex: 1;
+            padding: 15px;
+            background: #1a1a1a;
+            color: #f0f0f0;
+            font-family: 'Courier New', monospace;
+            font-size: calc(var(--index) * 0.45);
+            overflow: auto;
+            line-height: 1.4;
+        }
+
+        .code-keyword {
+            color: #569cd6;
+        }
+
+        .code-function {
+            color: #dcdcaa;
+        }
+
+        .code-string {
+            color: #ce9178;
+        }
+
+        .code-comment {
+            color: #6a9955;
+        }
+
+        .code-number {
+            color: #b5cea8;
+        }
+
+        .code-operator {
+            color: #d4d4d4;
         }
 
         .frame-media_left {
@@ -198,9 +261,10 @@
         .frame h3 {
             font-size: calc(var(--index) * 3);
             color: var(--accent);
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
             line-height: 1;
+            font-family: 'Arturito', Arial, sans-serif;
         }
 
         .frame p {
@@ -216,7 +280,6 @@
             background: #000000;
             color: #ffffff;
             padding: 20px;
-            border-radius: 8px;
             border-left: 3px solid var(--accent);
             font-family: 'Courier New', monospace;
             font-size: calc(var(--index) * 0.7);
@@ -228,25 +291,14 @@
             font-weight: bold;
         }
 
-        /* Градиенты */
-        .gradient-1 {
-            background: linear-gradient(45deg, #000000, #333333, #666666);
+        /* Скрытие скроллбара для 3D проекта */
+        #project3d::-webkit-scrollbar {
+            display: none;
         }
-
-        .gradient-2 {
-            background: linear-gradient(45deg, #000000, #E45319, #000000);
-        }
-
-        .gradient-3 {
-            background: linear-gradient(45deg, #E45319, #000000, #E45319);
-        }
-
-        .gradient-4 {
-            background: linear-gradient(45deg, #333333, #000000, #E45319);
-        }
-
-        .gradient-5 {
-            background: linear-gradient(45deg, #000000, #E45319, #333333);
+        
+        #project3d {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
@@ -284,13 +336,31 @@
             <section class="gallery">
                 <div class="frame">
                     <div class="frame__content">
-                        <h2>Code Universe</h2>
+                        <h2>JavaScript Universe</h2>
                     </div>
                 </div>
 
                 <div class="frame">
                     <div class="frame__content">
-                        <div class="frame-media frame-media_left gradient-1"></div>
+                        <div class="frame-media frame-media_left">
+                            <div class="code-header">array-methods.js</div>
+                            <div class="code-content">
+                                <span class="code-comment">// Работа с массивами</span><br>
+                                <span class="code-keyword">const</span> numbers = [<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>, <span class="code-number">4</span>, <span class="code-number">5</span>];<br>
+                                <br>
+                                <span class="code-comment">// Map - преобразование</span><br>
+                                <span class="code-keyword">const</span> doubled = numbers<br>
+                                &nbsp;&nbsp;.<span class="code-function">map</span>(n => n * <span class="code-number">2</span>);<br>
+                                <br>
+                                <span class="code-comment">// Filter - фильтрация</span><br>
+                                <span class="code-keyword">const</span> even = numbers<br>
+                                &nbsp;&nbsp;.<span class="code-function">filter</span>(n => n % <span class="code-number">2</span> === <span class="code-number">0</span>);<br>
+                                <br>
+                                <span class="code-comment">// Reduce - аккумуляция</span><br>
+                                <span class="code-keyword">const</span> sum = numbers<br>
+                                &nbsp;&nbsp;.<span class="code-function">reduce</span>((acc, n) => acc + n, <span class="code-number">0</span>);
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -312,7 +382,27 @@
 
                 <div class="frame frame_bg">
                     <div class="frame__content">
-                        <div class="frame-media frame-media_left gradient-2"></div>
+                        <div class="frame-media frame-media_left">
+                            <div class="code-header">async-await.js</div>
+                            <div class="code-content">
+                                <span class="code-comment">// Асинхронные операции</span><br>
+                                <span class="code-keyword">async</span> <span class="code-keyword">function</span> <span class="code-function">fetchUserData</span>() {<br>
+                                &nbsp;&nbsp;<span class="code-keyword">try</span> {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">const</span> response = <span class="code-keyword">await</span> <span class="code-function">fetch</span>(<span class="code-string">'/api/users'</span>);<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">const</span> data = <span class="code-keyword">await</span> response.<span class="code-function">json</span>();<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> data;<br>
+                                &nbsp;&nbsp;} <span class="code-keyword">catch</span> (error) {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;console.<span class="code-function">error</span>(<span class="code-string">'Error:'</span>, error);<br>
+                                &nbsp;&nbsp;}<br>
+                                }<br>
+                                <br>
+                                <span class="code-comment">// Использование</span><br>
+                                <span class="code-function">fetchUserData</span>()<br>
+                                &nbsp;&nbsp;.<span class="code-function">then</span>(users => {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;console.<span class="code-function">log</span>(users);<br>
+                                &nbsp;&nbsp;});
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -320,7 +410,34 @@
 
                 <div class="frame frame_bg">
                     <div class="frame__content">
-                        <div class="frame-media frame-media_right gradient-3"></div>
+                        <div class="frame-media frame-media_right">
+                            <div class="code-header">classes.js</div>
+                            <div class="code-content">
+                                <span class="code-comment">// Классы в JavaScript</span><br>
+                                <span class="code-keyword">class</span> <span class="code-function">Person</span> {<br>
+                                &nbsp;&nbsp;<span class="code-function">constructor</span>(name, age) {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">this</span>.name = name;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">this</span>.age = age;<br>
+                                &nbsp;&nbsp;}<br>
+                                <br>
+                                &nbsp;&nbsp;<span class="code-function">greet</span>() {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-string">`Hello, my name is <span class="code-operator">${</span><span class="code-keyword">this</span>.name<span class="code-operator">}</span>`</span>;<br>
+                                &nbsp;&nbsp;}<br>
+                                <br>
+                                &nbsp;&nbsp;<span class="code-function">getBirthYear</span>() {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-keyword">new</span> <span class="code-function">Date</span>().<span class="code-function">getFullYear</span>() - <span class="code-keyword">this</span>.age;<br>
+                                &nbsp;&nbsp;}<br>
+                                }<br>
+                                <br>
+                                <span class="code-comment">// Наследование</span><br>
+                                <span class="code-keyword">class</span> <span class="code-function">Student</span> <span class="code-keyword">extends</span> Person {<br>
+                                &nbsp;&nbsp;<span class="code-function">constructor</span>(name, age, grade) {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">super</span>(name, age);<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">this</span>.grade = grade;<br>
+                                &nbsp;&nbsp;}<br>
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -341,7 +458,29 @@
 
                 <div class="frame frame_bg">
                     <div class="frame__content">
-                        <div class="frame-media frame-media_right gradient-4"></div>
+                        <div class="frame-media frame-media_right">
+                            <div class="code-header">dom-manipulation.js</div>
+                            <div class="code-content">
+                                <span class="code-comment">// Работа с DOM</span><br>
+                                <span class="code-keyword">const</span> button = document<br>
+                                &nbsp;&nbsp;.<span class="code-function">getElementById</span>(<span class="code-string">'myButton'</span>);<br>
+                                <br>
+                                <span class="code-comment">// Обработчик событий</span><br>
+                                button.<span class="code-function">addEventListener</span>(<span class="code-string">'click'</span>, () => {<br>
+                                &nbsp;&nbsp;<span class="code-keyword">const</span> element = document<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;.<span class="code-function">createElement</span>(<span class="code-string">'div'</span>);<br>
+                                &nbsp;&nbsp;element.textContent = <span class="code-string">'New element!'</span>;<br>
+                                &nbsp;&nbsp;document.body.<span class="code-function">appendChild</span>(element);<br>
+                                });<br>
+                                <br>
+                                <span class="code-comment">// Изменение стилей</span><br>
+                                <span class="code-keyword">const</span> changeColor = () => {<br>
+                                &nbsp;&nbsp;document.body.style.backgroundColor = <span class="code-string">'#'</span> + <br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;Math.<span class="code-function">floor</span>(Math.<span class="code-function">random</span>() * <span class="code-number">16777215</span>)<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;.<span class="code-function">toString</span>(<span class="code-number">16</span>);<br>
+                                };
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -350,7 +489,26 @@
 
                 <div class="frame frame_bg">
                     <div class="frame__content">
-                        <div class="frame-media frame-media_right gradient-5"></div>
+                        <div class="frame-media frame-media_right">
+                            <div class="code-header">modules.js</div>
+                            <div class="code-content">
+                                <span class="code-comment">// Экспорт функций</span><br>
+                                <span class="code-keyword">export</span> <span class="code-keyword">function</span> <span class="code-function">calculate</span>(a, b) {<br>
+                                &nbsp;&nbsp;<span class="code-keyword">return</span> a + b;<br>
+                                }<br>
+                                <br>
+                                <span class="code-keyword">export</span> <span class="code-keyword">const</span> PI = <span class="code-number">3.14159</span>;<br>
+                                <br>
+                                <span class="code-keyword">export</span> <span class="code-keyword">default</span> <span class="code-keyword">class</span> <span class="code-function">Calculator</span> {<br>
+                                &nbsp;&nbsp;<span class="code-function">multiply</span>(x, y) {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> x * y;<br>
+                                &nbsp;&nbsp;}<br>
+                                }<br>
+                                <br>
+                                <span class="code-comment">// Импорт в другом файле</span><br>
+                                <span class="code-comment">// import Calculator, { calculate, PI } from './math.js';</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
