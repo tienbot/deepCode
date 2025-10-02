@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --accent: #E45319;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Секции сайта */
+        .website-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+            transition: opacity 0.5s ease;
+        }
+
+        #section1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        #section2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        #section3 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .section-content {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            background-color: #ff6b35;
+        }
+
+        /* 3D проект (изначально скрыт) */
+        #project3d {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            z-index: 1000;
+            display: none;
+            overflow: hidden;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Стили для 3D проекта */
+        .project-container {
+            --index: calc(1vw + 1vh);
+            --gutter: 30px;
+            --side-small: 26;
+            --side-big: 36;
+            --depth: 4000px;
+            --transition: .75s cubic-bezier(0.075, .5, 0, 1);
+        }
+
+        .fix-container {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            perspective: 1500px;
+        }
+
+        .gallery {
+            transform-style: preserve-3d;
+            height: 100%;
+        }
+
+        .frame {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition), opacity .75s ease;
+            will-change: transform;
+            transform-style: preserve-3d;
+        }
+
+        .frame h2 {
+            text-align: center;
+            font-size: calc(var(--index) * 3.3);
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(228, 83, 25, 0.3);
+            font-weight: 600;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .frame-media {
+            position: relative;
+            height: calc(var(--index) * var(--side-big));
+            width: calc(var(--index) * var(--side-small));
+            background-position: center;
+            background-size: cover;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border: 2px solid #000000;
+        }
+
+        .frame-media_left {
+            right: calc(var(--side-small) / 2 * var(--index) + var(--gutter))
+        }
+
+        .frame-media_right {
+            left: calc(var(--side-small) / 2 * var(--index) + var(--gutter))
+        }
+
+        .frame_bg {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .text-right>* {
+            position: relative;
+            left: 18vw;
+        }
+
+        .text-left>* {
+            position: relative;
+            right: 18vw;
+        }
+
+        .frame h3 {
+            font-size: calc(var(--index) * 3);
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .frame p {
+            max-width: 30vw;
+            margin-top: 3vh;
+            color: #333333;
+            font-size: calc(var(--index) * 0.8);
+            font-family: 'Courier New', monospace;
+            line-height: 1.75;
+        }
+
+        .code-block {
+            background: #000000;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+            font-family: 'Courier New', monospace;
+            font-size: calc(var(--index) * 0.7);
+            margin-top: 2vh;
+        }
+
+        .accent-text {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Градиенты */
+        .gradient-1 {
+            background: linear-gradient(45deg, #000000, #333333, #666666);
+        }
+
+        .gradient-2 {
+            background: linear-gradient(45deg, #000000, #E45319, #000000);
+        }
+
+        .gradient-3 {
+            background: linear-gradient(45deg, #E45319, #000000, #E45319);
+        }
+
+        .gradient-4 {
+            background: linear-gradient(45deg, #333333, #000000, #E45319);
+        }
+
+        .gradient-5 {
+            background: linear-gradient(45deg, #000000, #E45319, #333333);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Основной сайт с тремя секциями -->
+    <section id="section1" class="website-section">
+        <div class="section-content">
+            <h1>Добро пожаловать</h1>
+            <p>Это демонстрация моего портфолио с интерактивными проектами</p>
+            <p>Прокрутите вниз, чтобы увидеть больше</p>
+        </div>
+    </section>
+
+    <section id="section2" class="website-section">
+        <div class="section-content">
+            <h2>Мои проекты</h2>
+            <p>Здесь представлены мои лучшие работы в области веб-разработки</p>
+            <button class="btn" id="showProjectBtn">Посмотреть 3D проект</button>
+        </div>
+    </section>
+
+    <section id="section3" class="website-section">
+        <div class="section-content">
+            <h2>Контакты</h2>
+            <p>Свяжитесь со мной для сотрудничества</p>
+            <p>email: example@example.com</p>
+        </div>
+    </section>
+
+    <!-- 3D проект (изначально скрыт) -->
+    <div id="project3d" class="project-container">
+        <button class="close-btn" id="closeProjectBtn">×</button>
+        <div class="fix-container">
+            <section class="gallery">
+                <div class="frame">
+                    <div class="frame__content">
+                        <h2>Code Universe</h2>
+                    </div>
+                </div>
+
+                <div class="frame">
+                    <div class="frame__content">
+                        <div class="frame-media frame-media_left gradient-1"></div>
+                    </div>
+                </div>
+
+                <div class="frame"></div>
+
+                <div class="frame">
+                    <div class="frame__content text-right">
+                        <h3>Digital Architecture</h3>
+                        <p>Building complex systems with elegant code structures that power our modern digital world.
+                        </p>
+                        <div class="code-block">
+                            function createDigitalWorld() {<br>
+                            &nbsp;&nbsp;return <span class="accent-text">innovation</span> + <span
+                                class="accent-text">creativity</span>;<br>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="frame frame_bg">
+                    <div class="frame__content">
+                        <div class="frame-media frame-media_left gradient-2"></div>
+                    </div>
+                </div>
+
+                <div class="frame"></div>
+
+                <div class="frame frame_bg">
+                    <div class="frame__content">
+                        <div class="frame-media frame-media_right gradient-3"></div>
+                    </div>
+                </div>
+
+                <div class="frame"></div>
+
+                <div class="frame">
+                    <div class="frame__content text-left">
+                        <h3>Algorithmic Thinking</h3>
+                        <p>Solving complex problems through logical patterns and efficient computational methods.</p>
+                        <div class="code-block">
+                            while (<span class="accent-text">problem</span>.exists()) {<br>
+                            &nbsp;&nbsp;solution = <span class="accent-text">algorithm</span>.think();<br>
+                            &nbsp;&nbsp;<span class="accent-text">problem</span>.solve(solution);<br>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="frame frame_bg">
+                    <div class="frame__content">
+                        <div class="frame-media frame-media_right gradient-4"></div>
+                    </div>
+                </div>
+
+                <div class="frame"></div>
+                <div class="frame"></div>
+
+                <div class="frame frame_bg">
+                    <div class="frame__content">
+                        <div class="frame-media frame-media_right gradient-5"></div>
+                    </div>
+                </div>
+
+                <div class="frame"></div>
+                <div class="frame"></div>
+
+                <div class="frame">
+                    <div class="frame__content">
+                        <div class="code-block">
+                            // <span class="accent-text">Keep coding, keep innovating</span><br>
+                            // <span class="accent-text">The digital frontier awaits</span>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Управление показом/скрытием 3D проекта
+        const showProjectBtn = document.getElementById('showProjectBtn');
+        const closeProjectBtn = document.getElementById('closeProjectBtn');
+        const project3d = document.getElementById('project3d');
+        const websiteSections = document.querySelectorAll('.website-section');
+
+        showProjectBtn.addEventListener('click', function () {
+            // Скрываем основные секции сайта
+            websiteSections.forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Показываем 3D проект
+            project3d.style.display = 'block';
+
+            // Инициализируем скролл для 3D проекта
+            init3DScroll();
+        });
+
+        closeProjectBtn.addEventListener('click', function () {
+            websiteSections.forEach(section => section.style.display = 'flex');
+            project3d.style.display = 'none';
+
+            // сброс скролла и стилей
+            document.body.style.height = "auto";
+            document.body.style.overflow = "auto";
+            window.onscroll = null;
+        });
+
+        // Функция для инициализации 3D скролла
+        function init3DScroll() {
+    let zSpacing = -1500,
+        $frames = document.getElementsByClassName('frame'),
+        frames = Array.from($frames);
+
+    const speed = 7;
+    const depthOffset = 4000; // двигает всё ближе к камере
+
+    const maxScroll = ((frames.length - 1) * Math.abs(zSpacing)) / speed + 500;
+    document.body.style.height = `${maxScroll}px`;
+
+    window.onscroll = function () {
+        let top = document.documentElement.scrollTop;
+        if (top < 0) top = 0;
+        if (top > maxScroll) top = maxScroll;
+
+        frames.forEach(function (frame, i) {
+            let z = (i * zSpacing) + zSpacing + top * speed + depthOffset;
+
+            let opacity = z < Math.abs(zSpacing) / 1.8 ? 1 : 0;
+            if (i === frames.length - 1) opacity = 1;
+
+            frame.style.transform = `translateZ(${z}px)`;
+            frame.style.opacity = opacity;
+        });
+    };
+
+    document.addEventListener("wheel", function (e) {
+        e.preventDefault();
+        let newScroll = document.documentElement.scrollTop + e.deltaY;
+        if (newScroll < 0) newScroll = 0;
+        if (newScroll > maxScroll) newScroll = maxScroll;
+        window.scrollTo(0, newScroll);
+    }, { passive: false });
+
+    window.scrollTo(0, 1);
+}
+
+
+
+    </script>
+</body>
+
+</html>
